@@ -4,7 +4,7 @@ import { amountChange } from "../store/rates";
 export function AmoundField({amount}) {
   const dispatch = useDispatch();
   const onChange = (e) => {
-    dispatch (amountChange( e.target.value))
+    dispatch (amountChange(e.target.value))
   } 
   return (
     <form className = "ExchangeRate-form">
