@@ -1,27 +1,25 @@
 import { AmoundField } from "./AmoundField";
 import { CurrencyCodePicker } from "./CurrencyCodePicker";
 import { RateTable } from "./RateTable";
-import exchangeRates from "../lib/raters.json";
 import { useState,  useEffect } from "react";
-import { useSelector } from "react-redux";
-import { getCurrencyCode, getAmount } from "../store/rates";
+import { useSelector, useDispatch } from "react-redux";
+import { getCurrencyCode, getAmount, getCurrencyData, currencyCodeChange} from "../store/rates";
 
-export const  getExchangeRates = (base) => exchangeRates[base];
-
-const supportedCurrencies = ["USD", "EUR", "JPY", "CAD", "GBP", "MXN"];
+export const supportedCurrencies = ["USD", "EUR", "JPY", "CAD", "GBP", "MXN"];
 
 export const ExchangeRate = () => {
  // const [amount, setAmount] = useState('1.5');
 // const [currencyCode, setCurrencyCode] = useState('USD');
-  const [currencyData, setCurrencyData] = useState({USD: 1.0});
-
+ // const [currencyData, setCurrencyData] = useState({USD: 1.0});
+  const dispatch = useDispatch();
   const amount = useSelector(getAmount);
   const currencyCode = useSelector(getCurrencyCode);
+  const currencyData = useSelector(getCurrencyData);
 
   useEffect(() => 
-    setCurrencyData(getExchangeRates(currencyCode))
-    ,[currencyCode]
-  )
+    dispatch(currencyCodeChange(currencyCode))
+    , []
+  ) 
 
   // const handleCurrencyCode = useCallback(
   //   (e) => setCurrencyCode(e.target.value),
